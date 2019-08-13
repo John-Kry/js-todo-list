@@ -4,11 +4,17 @@ window.onload = function () {
         items = JSON.parse(localStorage.getItem('items'))
         createSavedItems()
     }
-
 }
 function addItem() {
     let ul = document.getElementById('ul');
     let li = document.createElement('li');
+    let a = createaWithEventListener();
+    for (i = 0; i < items.length; i++) {
+        ul.appendChild(li);
+        li.appendChild(a).innerHTML = items[i];
+    }
+}
+function createaWithEventListener(){
     let a = document.createElement('a');
     a.addEventListener("click", function () {
         if (a.innerHTML.includes(" - Completed")) {
@@ -19,25 +25,13 @@ function addItem() {
             a.append(" - Completed");
         }
     });
-    for (i = 0; i < items.length; i++) {
-        ul.appendChild(li);
-        li.appendChild(a).innerHTML = items[i];
-    }
+    return a
 }
 function createSavedItems() {
     let ul = document.getElementById('ul');
     for (i = 0; i < items.length; i++) {
         let li = document.createElement('li');
-        let a = document.createElement('a');
-        a.addEventListener("click", function () {
-            if (a.innerHTML.includes(" - Completed")) {
-                a.innerHTML = a.innerHTML.replace(" - Completed", " ");
-                a.style.color = "currentColor";
-            } else {
-                a.style.color = "green";
-                a.append(" - Completed");
-            }
-        });
+        let a = createaWithEventListener()
         ul.appendChild(li);
         li.appendChild(a).innerHTML = items[i];
     }
